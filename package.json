@@ -1,0 +1,19 @@
+{
+  "name": "keycloak-api-authentication",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "nyc --reporter=lcov ava"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.7",
+    "ava": "^3.12.1",
+    "eslint": "^7.8.1",
+    "nock": "^13.0.4",
+    "nyc": "^15.1.0"
+  },
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
