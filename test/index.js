@@ -1,61 +1,6 @@
 const test = require('ava')
-const nock = require('nock')
+const { keycloakRoot, setupFakeApi, setupFakeKeyloak } = require('./_helpers')
 const { fetch, authenticate, addSeconds, encodeToken, createTokenFromResponse } = require('../lib/keycloak')
-
-
-function setupFakeApi () {
-    const server = nock('http://api.com')
-    server
-        .get('/value')
-        .reply(function () {
-            // const auth = body.req
-            const auth = this.req.headers['authorization']
-            // "either our hardcoded token, or the fake auth token"
-            if (auth === 'Bearer valid' || auth === 'Bearer access_token') {
-                const resp = {
-                    valid: true
-                }
-                return [200, resp]
-            }
-            else {
-                return [400, {
-                    'error': 'unauthorized_client',
-                    'error_description': 'INVALID_CREDENTIALS: Invalid client credentials'
-                }]
-            }
-        }).persist()
-}
-
-const keycloakRoot = 'https://keycloak.test/auth/realms/test'
-function setupFakeKeyloak () {
-    const keycloakUrl = '/protocol/openid-connect/token'
-    const server = nock(`${keycloakRoot}`)
-    server
-        .post(keycloakUrl)
-        .reply(function () {
-            // const auth = body.req
-            const auth = this.req.headers['authorization']
-            if (auth === 'Basic dGVzdDpzZWNyZXQ=') {
-                const resp = {
-                    'access_token': 'access_token',
-                    'expires_in': 1200,
-                    'refresh_expires_in': 1800,
-                    'refresh_token': 'refresh_token',
-                    'token_type': 'bearer',
-                    'not-before-policy': 0,
-                    'session_state': 'ad57bbea-768d-4118-afde-c7bc569f5ba2',
-                    'scope': 'profile email'
-                }
-                return [200, resp]
-            }
-            else {
-                return [400, {
-                    'error': 'unauthorized_client',
-                    'error_description': 'INVALID_CREDENTIALS: Invalid client credentials'
-                }]
-            }
-        }).persist()
-}
 
 test.beforeEach(() => {
     setupFakeApi()
@@ -115,7 +60,6 @@ test('fetch must call an url, et return its json content', async t => {
     }
 })
 
-
 test('addSeconds should add some seconds to a nodejs date', t => {
     const date = new Date()
     t.is(date.getTime(), addSeconds(date, 0).getTime())
@@ -143,7 +87,6 @@ test('createTokenFromResponse must format the response, and calculate expire tim
     t.deepEqual(formated.expiresAt, addSeconds(date, response.expires_in))
     t.deepEqual(formated.refreshExpiresAt, addSeconds(date, response.refresh_expires_in))
 })
-
 
 test('Authenticate should return a token when the serviceName & secret are good', t => {
     return Promise.all([
