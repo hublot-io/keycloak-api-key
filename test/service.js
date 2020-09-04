@@ -20,5 +20,5 @@ test('create store will return a store, we can get & update its content', t => {
 test('create service will create a service, that manages the auth token', async t => {
     const service = await createService(keycloakRoot, 'test', 'secret')
     const response = await service.fetch('http://api.com/value', { method: 'GET' })
-    t.is(response.valid, true)
+    t.is(JSON.parse(response).valid, true)
 })
