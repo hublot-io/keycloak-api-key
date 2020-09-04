@@ -1,5 +1,5 @@
 {
-  "name": "keycloak-api-authentication",
+  "name": "keycloak-api-key",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
