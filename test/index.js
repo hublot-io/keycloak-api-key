@@ -20,7 +20,8 @@ test('fetch must call an url, et return its json content', async t => {
     const validToken = {
         ...defaultToken,
     }
-    const [{ valid }] = await fetch(validToken, 'http://api.com/value', { method: 'GET' })
+    const [body] = await fetch(validToken, 'http://api.com/value', { method: 'GET' })
+    const { valid } = JSON.parse(body)
     t.is(valid, true)
 
     const invalidToken = {
@@ -40,7 +41,8 @@ test('fetch must call an url, et return its json content', async t => {
         refreshExpiresAt: addSeconds(new Date(), 1600),
     }
     try {
-        const [{ valid }] = await fetch(invalidDateToken, 'http://api.com/value', { method: 'GET' })
+        const [body] = await fetch(invalidDateToken, 'http://api.com/value', { method: 'GET' })
+        const { valid } = JSON.parse(body)
         t.is(valid, true)
     } catch (e) {
         t.fail()
@@ -52,7 +54,8 @@ test('fetch must call an url, et return its json content', async t => {
         refreshExpiresAt: addSeconds(new Date(), -20)
     }
     try {
-        const [{ valid }] = await fetch(invalidTokenAndRefresh, 'http://api.com/value', { method: 'GET' })
+        const [body] = await fetch(invalidTokenAndRefresh, 'http://api.com/value', { method: 'GET' })
+        const { valid } = JSON.parse(body)
         t.is(valid, true)
     }
     catch (e) {
