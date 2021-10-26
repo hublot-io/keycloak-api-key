@@ -5,7 +5,7 @@ function setupFakeApi () {
         .get('/value')
         .reply(function () {
             // const auth = body.req
-            const auth = this.req.headers['authorization']
+            const auth = this.req.headers['authorization'][0]
             // "either our hardcoded token, or the fake auth token"
             if (auth === 'Bearer valid' || auth === 'Bearer access_token') {
                 const resp = {
@@ -30,7 +30,7 @@ function setupFakeKeyloak () {
         .post(keycloakUrl)
         .reply(function () {
             // const auth = body.req
-            const auth = this.req.headers['authorization']
+            const auth = this.req.headers['authorization'][0]
             if (auth === 'Basic dGVzdDpzZWNyZXQ=') {
                 const resp = {
                     'access_token': 'access_token',

@@ -1,19 +1,44 @@
 {
   "name": "keycloak-api-key",
   "version": "1.0.0",
-  "main": "lib/index.js",
+  "main": "dist/keycoquelico.js",
   "license": "MIT",
   "scripts": {
-    "test": "nyc --reporter=lcov ava"
+    "test:node": "nyc --reporter=lcov ava test/**/*.js",
+    "test:web": "karma start",
+    "test": "yarn build && yarn test:node && yarn test:web",
+    "build": "webpack --mode=production"
   },
   "devDependencies": {
-    "@types/node-fetch": "^2.5.7",
-    "ava": "^3.12.1",
-    "eslint": "^7.8.1",
-    "nock": "^13.0.4",
-    "nyc": "^15.1.0"
+    "@hapi/hapi": "^20.2.1",
+    "@types/node-fetch": "^3.0.3",
+    "ava": "^3.15.0",
+    "eslint": "^8.1.0",
+    "nock": "^13.1.4",
+    "nyc": "^15.1.0",
+    "webpack-cli": "^4.9.1"
   },
   "dependencies": {
-    "request": "^2.88.2"
+    "@esm-bundle/chai": "^4.3.4-fix.0",
+    "@open-wc/karma-esm": "^4.0.0",
+    "@web/test-runner": "^0.13.20",
+    "esm": "^3.2.25",
+    "isomorphic-base64": "^1.0.2",
+    "isomorphic-fetch": "^3.0.0",
+    "jasmine-core": "^3.10.1",
+    "karma": "^6.3.5",
+    "karma-child-process": "^1.0.5",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-cli": "^2.0.0",
+    "karma-firefox-launcher": "^2.1.1",
+    "karma-jasmine": "^4.0.1",
+    "karma-webpack": "^5.0.0",
+    "request": "^2.88.2",
+    "webpack": "^5.59.1"
+  },
+  "ava": {
+    "require": [
+      "esm"
+    ]
   }
 }
