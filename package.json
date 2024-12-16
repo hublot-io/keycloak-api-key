@@ -2,7 +2,7 @@
   "name": "keycloak-api-key",
   "version": "1.0.0",
   "main": "dist/keycoquelico.js",
-  "tyoe": "module",
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "test:node": "nyc --reporter=lcov ava test/**/*.js",
