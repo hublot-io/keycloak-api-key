@@ -2,6 +2,7 @@
   "name": "keycloak-api-key",
   "version": "1.0.0",
   "main": "dist/keycoquelico.js",
+  "tyoe": "module",
   "license": "MIT",
   "scripts": {
     "test:node": "nyc --reporter=lcov ava test/**/*.js",
@@ -22,7 +23,6 @@
     "@esm-bundle/chai": "^4.3.4-fix.0",
     "@open-wc/karma-esm": "^4.0.0",
     "@web/test-runner": "^0.13.20",
-    "esm": "^3.2.25",
     "isomorphic-base64": "^1.0.2",
     "isomorphic-fetch": "^3.0.0",
     "jasmine-core": "^3.10.1",
@@ -36,9 +36,4 @@
     "request": "^2.88.2",
     "webpack": "^5.59.1"
   },
-  "ava": {
-    "require": [
-      "esm"
-    ]
-  }
 }
