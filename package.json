@@ -1,7 +1,7 @@
 {
   "name": "keycloak-api-key",
   "version": "1.0.0",
-  "main": "dist/keycoquelico.js",
+  "main": "lib/index.js",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -20,8 +20,6 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
-    "@esm-bundle/chai": "^4.3.4-fix.0",
-    "@open-wc/karma-esm": "^4.0.0",
     "@web/test-runner": "^0.13.20",
     "isomorphic-base64": "^1.0.2",
     "isomorphic-fetch": "^3.0.0",
