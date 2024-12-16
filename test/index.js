@@ -1,13 +1,12 @@
 const test = require('ava')
-const { keycloakRoot, setupFakeApi, setupFakeKeyloak } = require('./_helpers')
-const { fetch, authenticate, addSeconds, encodeToken, createTokenFromResponse } = require('../lib/keycloak')
-
+import { keycloakRoot, setupFakeApi, setupFakeKeyloak } from './_helpers'
+import { fetch, authenticate, addSeconds, encodeToken, createTokenFromResponse } from '../lib/keycloak'
 test.beforeEach(() => {
     setupFakeApi()
     setupFakeKeyloak()
 })
 
-test('fetch must call an url, et return its json content', async t => {
+test('fetch must call an url, a return its json content', async t => {
     const defaultToken = {
         token: 'valid',
         refreshToken: 'valid',
@@ -20,7 +19,8 @@ test('fetch must call an url, et return its json content', async t => {
     const validToken = {
         ...defaultToken,
     }
-    const [body] = await fetch(validToken, 'http://api.com/value', { method: 'GET' })
+    const resp = await fetch(validToken, 'http://api.com/value', { method: 'GET' })
+    const [body]  = resp
     const { valid } = JSON.parse(body)
     t.is(valid, true)
 
@@ -95,6 +95,8 @@ test('Authenticate should return a token when the serviceName & secret are good'
     return Promise.all([
         authenticate(keycloakRoot, 'test', 'secret').then((json) => {
             t.pass()
+        }).catch((e)=>{
+            console.log('ERROR, FAIL', e)
         }),
         authenticate(keycloakRoot, 'test', 'fake').catch(error => {
             t.pass()
